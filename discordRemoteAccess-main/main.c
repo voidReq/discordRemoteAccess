@@ -1,21 +1,22 @@
 #include <string.h>
 #include <concord/discord.h>
-//#include "bacon.c"
+#include <pthread.h>
+
+// Add this line
+extern int testing(void);
 
 //sudo gcc main.c -o myBot -pthread -ldiscord -lcurl
-//WINDOWS: gcc main.c -o myBot -I"C:\Users\jhans\c_projects\libs\concord\include" -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32
+/*
+gcc -c bacon.c -o bacon.o
+gcc -c main.c -o main.o -I"C:\Users\jhans\c_projects\libs\concord\include"
+gcc bacon.o main.o -o myBot.exe -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32
+*/
+
 
 #define GUILD_ID 1268716880487645277
 #define BOT_TOKEN "MTI4MjEzMjQ2ODQwODc3ODg1Nw.GFkQFV.kbe_V3hN6cMoX_hpbWjdeR-n51FPKAM8C_FQHQ"
 
-#ifdef _WIN32
-    #include <winsock2.h>
-#else
-    #include <sys/socket.h>
-    #include <netinet/in.h>
-    #include <arpa/inet.h>
-    #include <unistd.h>
-#endif
+
 
 void on_ready(struct discord *client, const struct discord_ready *event) {
     struct discord_create_guild_application_command params = {
@@ -42,9 +43,27 @@ void on_interaction(struct discord *client, const struct discord_interaction *ev
     }
 }
 
+void *run_testing(void *arg) {
+    testing();
+    return NULL;
+}
+
 int main(void) {
+    pthread_t thread_id;
+    
+    // Create a new thread for the testing function
+    if (pthread_create(&thread_id, NULL, run_testing, NULL) != 0) {
+        fprintf(stderr, "Failed to create thread\n");
+        return 1;
+    }
+
     struct discord *client = discord_init(BOT_TOKEN);
     discord_set_on_ready(client, &on_ready);
     discord_set_on_interaction_create(client, &on_interaction);
     discord_run(client);
+
+    // Wait for the testing thread to finish (optional)
+    pthread_join(thread_id, NULL);
+
+    return 0;
 }
