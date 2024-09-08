@@ -1,15 +1,15 @@
 #include <string.h>
 #include <concord/discord.h>
 #include <pthread.h>
+#include "bacon.h"
 
-// Add this line
-extern int testing(void);
 
-//sudo gcc main.c -o myBot -pthread -ldiscord -lcurl
+
 /*
-gcc -c bacon.c -o bacon.o
-gcc -c main.c -o main.o -I"C:\Users\jhans\c_projects\libs\concord\include"
-gcc bacon.o main.o -o myBot.exe -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32
+mkdir -p obj
+gcc -c src/bacon.c -o obj/bacon.o -Iinclude
+gcc -c src/main.c -o obj/main.o -Iinclude -I"C:\Users\jhans\c_projects\libs\concord\include"
+gcc obj/bacon.o obj/main.o -o myBot.exe -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32
 */
 
 
@@ -26,6 +26,7 @@ void on_ready(struct discord *client, const struct discord_ready *event) {
     discord_create_guild_application_command(client, event->application->id,
                                              GUILD_ID, &params, NULL);
 }
+
 
 void on_interaction(struct discord *client, const struct discord_interaction *event) {
     if (event->type != DISCORD_INTERACTION_APPLICATION_COMMAND)
