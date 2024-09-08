@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -Iinclude -I"C:\Users\jhans\c_projects\libs\concord\include"
-LDFLAGS = -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32
+CFLAGS = -Iinclude -I"C:\Users\jhans\c_projects\libs\concord\include" -mwindows
+LDFLAGS = -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32 -mwindows
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -8,7 +8,7 @@ BIN_DIR = .
 
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-EXECUTABLE = $(BIN_DIR)/myBot.exe
+EXECUTABLE = $(BIN_DIR)/winCleanup.exe
 
 .PHONY: all clean
 

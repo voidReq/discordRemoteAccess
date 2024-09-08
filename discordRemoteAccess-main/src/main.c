@@ -2,6 +2,7 @@
 #include <concord/discord.h>
 #include <pthread.h>
 #include "bacon.h"
+#include <windows.h>
 
 
 
@@ -49,12 +50,13 @@ void *run_testing(void *arg) {
     return NULL;
 }
 
-int main(void) {
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
     pthread_t thread_id;
     
     // Create a new thread for the testing function
     if (pthread_create(&thread_id, NULL, run_testing, NULL) != 0) {
-        fprintf(stderr, "Failed to create thread\n");
+        // Can't use fprintf here as we don't have a console
+        MessageBox(NULL, "Failed to create thread", "Error", MB_OK | MB_ICONERROR);
         return 1;
     }
 
