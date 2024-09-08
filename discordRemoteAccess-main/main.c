@@ -1,8 +1,9 @@
 #include <string.h>
 #include <concord/discord.h>
 //#include "bacon.c"
-//hi
+
 //sudo gcc main.c -o myBot -pthread -ldiscord -lcurl
+//WINDOWS: gcc main.c -o myBot -I"C:\Users\jhans\c_projects\libs\concord\include" -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32
 
 #define GUILD_ID 1268716880487645277
 #define BOT_TOKEN "MTI4MjEzMjQ2ODQwODc3ODg1Nw.GFkQFV.kbe_V3hN6cMoX_hpbWjdeR-n51FPKAM8C_FQHQ"
