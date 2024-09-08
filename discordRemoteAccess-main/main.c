@@ -1,6 +1,7 @@
 #include <string.h>
 #include <concord/discord.h>
 //#include "bacon.c"
+//hi
 //sudo gcc main.c -o myBot -pthread -ldiscord -lcurl
 
 #define GUILD_ID 1268716880487645277
