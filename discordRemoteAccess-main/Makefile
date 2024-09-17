@@ -8,7 +8,7 @@ BIN_DIR = .
 
 SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-EXECUTABLE = $(BIN_DIR)/winCleanup.exe
+EXECUTABLE = $(BIN_DIR)/bigOunce.exe
 
 .PHONY: all clean
 
