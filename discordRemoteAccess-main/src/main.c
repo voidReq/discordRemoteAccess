@@ -15,7 +15,7 @@ gcc obj/bacon.o obj/main.o -o myBot.exe -L"C:\Users\jhans\c_projects\libs\concor
 
 
 #define GUILD_ID 1268716880487645277
-#define BOT_TOKEN "MTI4MjEzMjQ2ODQwODc3ODg1Nw.GFkQFV.kbe_V3hN6cMoX_hpbWjdeR-n51FPKAM8C_FQHQ"
+#define BOT_TOKEN ""
 
 
 
