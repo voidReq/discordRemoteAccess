@@ -1,27 +1,17 @@
 CC = gcc
-CFLAGS = -Iinclude -I"C:\Users\jhans\c_projects\libs\concord\include" -mwindows
-LDFLAGS = -L"C:\Users\jhans\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32 -mwindows
+CFLAGS = -Iinclude -I"C:\Users\jhans\programming\c_projects\libs\concord\include"
+LDFLAGS = -L"C:\Users\jhans\programming\c_projects\libs\concord\lib" -pthread -ldiscord -lcurl -lws2_32 -mwindows -lurlmon
 
-SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = .
+SRC = src/main.c src/bacon.c src/game.c
+OBJ = obj/main.o obj/bacon.o obj/game.o
 
-SOURCES = $(wildcard $(SRC_DIR)/*.c)
-OBJECTS = $(SOURCES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-EXECUTABLE = $(BIN_DIR)/bigOunce.exe
+all: bigOunce.exe
 
-.PHONY: all clean
+bigOunce.exe: $(OBJ)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
-all: $(EXECUTABLE)
-
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $^ -o $@ $(LDFLAGS)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJ_DIR):
-	mkdir -p $@
+obj/%.o: src/%.c
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 clean:
-	rm -rf $(OBJ_DIR) $(EXECUTABLE)
+	rm -f obj/*.o bigOunce.exe
